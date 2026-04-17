@@ -7,16 +7,15 @@ void GymSystem::startSystem() {
 void GymSystem::loginMenu() {
     int choice;
     do {
-        cout << "\n--- Welcome to Gym System ---\n";
-        cout << "Log in as:\n";
-        cout << "1. Admin\n";
-        cout << "2. User (Member)\n";
-        cout << "0. Exit\n";
-        cout << "Choice: ";
-        cin >> choice;
+        cout << "\n--- Welcome to Gym System ---\nLog in as:\n1. Admin\n2. User (Member)\n0. Exit\nChoice: ";
+        if (!(cin >> choice)) { cin.clear(); cin.ignore(100, '\n'); continue; }
 
-        if (choice == 1) adminLogin();
-        else if (choice == 2) userLogin();
+        switch (choice) {
+            case 1: adminLogin(); break;
+            case 2: userLogin(); break;
+            case 0: cout << "Exiting...\n"; break;
+            default: cout << "Invalid choice!\n"; break;
+        }
     } while (choice != 0);
 }
 
@@ -63,21 +62,18 @@ void GymSystem::userLogin() {
 void GymSystem::adminMenu() {
     int choice;
     do {
-        cout << "\n--- Admin Dashboard ---\n";
-        cout << "[1] Add New Member\n";
-        cout << "[2] Manage Trainers\n";
-        cout << "[3] search by name\n";
-        cout << "[4] search by id\n";
-        cout << "[5] payment\n";
-        cout << "[0] Log out\n";
-        cout << "Choice: "; cin >> choice;
+        cout << "\n--- Admin Dashboard ---\n[1] Add Member\n[2] Manage Trainers\n[3] Search Name\n[4] Search ID\n[5] Payment\n[0] Log out\nChoice: ";
+        if (!(cin >> choice)) { cin.clear(); cin.ignore(100, '\n'); continue; }
 
-        if (choice == 1) addMember();
-        if (choice == 2) ManageTrainers();
-        if (choice == 3) search_by_name();
-        if (choice == 4) search_by_id();
-        if (choice == 5) setPayment();
-        
+        switch (choice) {
+            case 1: addMember(); break;
+            case 2: ManageTrainers(); break;
+            case 3: search_by_name(); break;
+            case 4: search_by_id(); break;
+            case 5: setPayment(); break;
+            case 0: cout << "Logging out...\n"; break;
+            default: cout << "Invalid!\n"; break;
+        }
     } while (choice != 0);
 }
 
@@ -85,20 +81,22 @@ void GymSystem::adminMenu() {
 void GymSystem::userMenu() {
     int choice;
     do {
-        cout << "\n--- Member Menu ---\n";
-        cout << "[1] View Workout Program\n";
-        cout << "[2] Change Password\n";
-        cout << "[3] Attendance Record\n";
-        cout << "[0] Log out\n";
-        cout << "Choice: "; cin >> choice;
+        cout << "\n--- Member Menu ---\n[1] View Workout Program\n[2] Change Password\n[3] Attendance\n[0] Log out\nChoice: ";
+        if (!(cin >> choice)) { cin.clear(); cin.ignore(100, '\n'); continue; }
 
-        if (choice == 1) { /* نادى دالة عرض البرنامج */ }
-        else if (choice == 2) {
-            string newPass;
-            cout << "Enter new password: "; cin >> newPass;
-            loggedInMember->setPassword(newPass);
-            cout << "Password updated!\n";
+        switch (choice) {
+            case 1: viewWorkoutProgram(); break; 
+            case 2: {
+                string newPass;
+                cout << "Enter new password: "; cin >> newPass;
+                loggedInMember->setPassword(newPass);
+                cout << "Password updated!\n";
+            } break;
+            case 3: viewAttendance(); break;
+            case 0: cout << "Logging out...\n"; break;
+            default: cout << "Invalid choice!\n"; break;
         }
     } while (choice != 0);
+    
     loggedInMember = nullptr; // مسح بيانات الجلسة عند الخروج
 }
