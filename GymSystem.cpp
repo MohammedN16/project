@@ -66,11 +66,18 @@ void GymSystem::adminMenu() {
         cout << "\n--- Admin Dashboard ---\n";
         cout << "[1] Add New Member\n";
         cout << "[2] Manage Trainers\n";
+        cout << "[3] search by name\n";
+        cout << "[4] search by id\n";
+        cout << "[5] payment\n";
         cout << "[0] Log out\n";
         cout << "Choice: "; cin >> choice;
 
         if (choice == 1) addMember();
-        // باقي الاختيارات...
+        if (choice == 2) ManageTrainers();
+        if (choice == 3) search_by_name();
+        if (choice == 4) search_by_id();
+        if (choice == 5) setPayment();
+        
     } while (choice != 0);
 }
 
